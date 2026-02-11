@@ -64,19 +64,20 @@ relevant questionnaire evaluation and agreement confirmation...
 
 Open the URL shown in `docker logs futu-opend` in your browser, complete the questionnaire, and the container will auto-restart and run normally.
 
-## Generate RSA Key Pair
+## Generate RSA Key
 
-Required for API encryption when listening on non-localhost (which is the case in Docker).
+Required for API encryption when listening on non-localhost (which is the case in Docker). The same private key is shared between OpenD and the API client SDK.
 
 ```bash
-# Default: 1024-bit PKCS#1
-./gen-rsa-key.sh
-
-# Custom key size
-./gen-rsa-key.sh 2048
+./gen-rsa-key.sh        # Default: 1024-bit PKCS#1
+./gen-rsa-key.sh 512    # Or 512-bit
 ```
 
-Keys are saved to `./secrets/`. The public key (`rsa_public.pem`) is used in your API client SDK.
+Key is saved to `./secrets/rsa_private.pem`. In your API client:
+```python
+SysConfig.enable_proto_encrypt(True)
+SysConfig.set_init_rsa_file("rsa_private.pem")
+```
 
 ## Generate MD5 Password
 
