@@ -24,9 +24,9 @@ cp .env.example .env
 # 3. Create directories
 mkdir -p data secrets
 
-# 4. (Optional) Place your RSA private key
-# cp /path/to/your/rsa_private.pem secrets/
-# Uncomment FUTU_RSA_KEY_PATH in .env
+# 4. Generate RSA key pair for API encryption
+./gen-rsa-key.sh
+# Then uncomment FUTU_RSA_KEY_PATH in .env
 
 # 5. Build and start
 docker-compose up -d --build
@@ -63,6 +63,20 @@ relevant questionnaire evaluation and agreement confirmation...
 ```
 
 Open the URL shown in `docker logs futu-opend` in your browser, complete the questionnaire, and the container will auto-restart and run normally.
+
+## Generate RSA Key Pair
+
+Required for API encryption when listening on non-localhost (which is the case in Docker).
+
+```bash
+# Default: 1024-bit PKCS#1
+./gen-rsa-key.sh
+
+# Custom key size
+./gen-rsa-key.sh 2048
+```
+
+Keys are saved to `./secrets/`. The public key (`rsa_public.pem`) is used in your API client SDK.
 
 ## Generate MD5 Password
 
