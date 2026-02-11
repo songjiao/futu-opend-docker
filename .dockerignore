@@ -1,0 +1,11 @@
+.git
+.gitignore
+.env
+secrets/
+data/
+logs/
+*.md
+*.tar.gz
+.claude/
+.idea/
+.vscode/

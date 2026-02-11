@@ -1,0 +1,23 @@
+# Credentials
+.env
+
+# Secrets (RSA keys, certs)
+secrets/
+
+# Persistent data (Appdata.dat, device trust)
+data/
+
+# Logs
+logs/
+
+# OpenD binaries (if downloaded locally)
+*.tar.gz
+FutuOpenD*/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/

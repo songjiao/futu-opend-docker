@@ -1,0 +1,23 @@
+services:
+  opend:
+    build: .
+    container_name: futu-opend
+    env_file: .env
+    # stdin_open + tty: allow interactive console for SMS verification
+    # First-time: docker attach futu-opend → type verification commands
+    stdin_open: true
+    tty: true
+    ports:
+      - "${FUTU_API_PORT:-11111}:${FUTU_API_PORT:-11111}"
+    volumes:
+      # Persistent device trust data (AppData.dat)
+      - ./data:/data
+      # RSA private key (read-only)
+      - ./secrets:/secrets:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'echo > /dev/tcp/127.0.0.1/${FUTU_API_PORT:-11111}'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
