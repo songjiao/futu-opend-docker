@@ -9,6 +9,7 @@ services:
     tty: true
     ports:
       - "${FUTU_API_PORT:-11111}:${FUTU_API_PORT:-11111}"
+      - "${FUTU_WEBSOCKET_PORT:-33333}:${FUTU_WEBSOCKET_PORT:-33333}"
     volumes:
       # Persistent device trust data (AppData.dat)
       - ./data:/data
